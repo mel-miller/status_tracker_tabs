@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * @file
+ * Install, uninstall, and updates for Status Tracker Tabs.
+ */
+
+
+/**
+ * Implements hook_install().
+ */
+function status_tracker_tabs_install() {
+
+  //TODO preset variables like this when ready
+  //variable_set('var', 'value');
+
+}
