@@ -1,5 +1,5 @@
 name = Status Tracker Tabs
-description = Project status tracker graphic using a tabset and ADA compliance.
+description = Status tracker graphic using a tabset and ADA compliance.
 core = 7.x
 package = Status Tracker
 
