@@ -10,8 +10,17 @@
  * Implements hook_install().
  */
 function status_tracker_tabs_install() {
+  //basic
+  variable_set('current_phase', 2);
+  variable_set('current_phase_color', 'red');
+  variable_set('current_phase_label', 'Current');
+  variable_set('completed_phase_label', 'Completed');
+  variable_set('upcoming_phase_label', 'Upcoming');
 
-  //TODO preset variables like this when ready
-  //variable_set('var', 'value');
-
+  //phase titles
+  variable_set('title_1', 'Phase 1 Name');
+  variable_set('title_2', 'Phase 2 Name');
+  variable_set('title_3', 'Phase 3 Name');
+  variable_set('title_4', 'Phase 4 Name');
+  variable_set('title_5', 'Phase 5 Name');
 }
