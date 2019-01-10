@@ -244,7 +244,7 @@ function status_tracker_tabs_preprocess_tracker_tabs_display(&$variables) {
  function status_tracker_tabs_block_info() {
   $blocks['status_tracker_tabs'] = array(
     // The name that will appear in the block list.
-    'info' => t('Project Tracker Tabs'),
+    'info' => t('Status Tracker Tabs'),
     // Default setting.
     'cache' => DRUPAL_CACHE_PER_ROLE,
   );
@@ -256,17 +256,18 @@ function status_tracker_tabs_preprocess_tracker_tabs_display(&$variables) {
  * Implements hook_block_view().
  */
 function status_tracker_tabs_block_view($delta = '') {
+  $block = array();
 
 	$module_path = drupal_get_path('module', 'status_tracker_tabs');
-    $js_path = $module_path . '/js/';
-    $css_path = $module_path . '/css/';
+  $js_path = $module_path . '/js/';
+  $css_path = $module_path . '/css/';
 
 	if ($delta === 'status_tracker_tabs') {
 		$block = array(
 			'subject' => t('Project Status'),
 			'content' => array(
   			'#type' => 'markup',
-				'#markup' => theme ('status_tracker_tabs_display', $block),
+				'#markup' => theme ('tracker_tabs_display', $block),
 				'#attached' => array(
 					'js' => array(
 						$js_path . 'status-tracker-tabs.js'
