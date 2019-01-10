@@ -266,7 +266,7 @@ function status_tracker_tabs_block_view($delta = '') {
 			'subject' => t('Project Status'),
 			'content' => array(
   			'#type' => 'markup',
-				'#markup' => theme ('tracker_tabs_display', $block),
+				'#markup' => theme ('status_tracker_tabs_display', $block),
 				'#attached' => array(
 					'js' => array(
 						$js_path . 'status-tracker-tabs.js'
