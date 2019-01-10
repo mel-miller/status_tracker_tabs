@@ -1,0 +1,408 @@
+/* reset values from standard buttons */
+#status-tracker-tabs button {
+  background: none;
+  color: #666;
+  text-transform: none;
+  box-shadow: 0 0;
+  letter-spacing: 0;
+  border-radius: 0;
+  position: relative;
+}
+
+.visuallyhidden {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px; width: 1px;
+  margin: -1px; padding: 0; border: 0;
+}
+
+#status-tracker-tabs [role="tabpanel"]:focus {
+  border: 2px dotted #666;
+  outline: 0;
+  padding: 1em 0 0.5em;
+}
+
+/* common styles to horizontal and vertical */
+#status-tracker-tabs [role="tab"] {
+  position: relative;
+  margin: 0;
+  padding: 1.2em 0.8em;
+  overflow: visible;
+  background: #eee;
+  color: #222;
+  text-align: center;
+  font-size: 1.7rem;
+  font-weight: 400;
+  line-height: 115%;
+}
+
+#status-tracker-tabs [role="tab"]:hover {
+  background: #ddd;
+}
+
+#status-tracker-tabs [role="tab"]:hover,
+#status-tracker-tabs [role="tab"]:active {
+  outline: 0;
+}
+
+#status-tracker-tabs [role="tab"]:focus {
+  outline-offset: 0;
+}
+
+#status-tracker-tabs [role="tab"].is-current {
+  background: #222;
+  color: white;
+  text-align: center;
+}
+
+#status-tracker-tabs [role="tab"].is-current:hover {
+  background: #151515;
+}
+
+#status-tracker-tabs [role="tab"].is-complete {
+  background: #ccc;
+}
+
+#status-tracker-tabs [role="tab"].is-complete:hover {
+  background: #bbb;
+}
+
+.status-tracker-tabs--inner [role="tab"][aria-selected="true"]::after {
+  position: absolute;
+  content: '';
+  z-index: 3;
+  margin: auto;
+  display: block;
+}
+
+.status-tracker-tabs--inner .tabs-section--second {
+  border: 1px solid #ddd;
+  padding: 1em;
+}
+
+.status-tracker-tabs--inner [role="tabpanel"] {
+  position: relative;
+  z-index: 2;
+  color: #222;
+  background: white;
+  font-size: 1.9rem;
+  text-align: center;
+}
+
+
+/* Horizontal and vertical classes are applied and removed via js */
+
+/* Horizontal */
+.status-tracker-tabs--inner.ep-tracker-horizontal .tabs-section--first {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.status-tracker-tabs--inner.ep-tracker-horizontal [role="tab"] {
+  flex-basis: 19.85%;
+}
+
+.status-tracker-tabs--inner.ep-tracker-horizontal [role="tab"][aria-selected="true"]::after {
+  border-right: 16px solid transparent;
+  border-top: 16px solid #eee;
+  border-left: 16px solid transparent;
+  width: 16px;
+  bottom: -14px;
+  left: 0;
+  right: 0;
+}
+
+.status-tracker-tabs--inner.ep-tracker-horizontal [role="tab"][aria-selected="true"]:hover::after {
+  border-top-color: #ddd;
+}
+
+.status-tracker-tabs--inner.ep-tracker-horizontal [role="tab"][aria-selected="true"].is-current::after {
+  border-top-color: #222;
+}
+
+.status-tracker-tabs--inner.ep-tracker-horizontal [role="tab"][aria-selected="true"].is-current:hover::after {
+  border-top-color: #151515;
+}
+
+.status-tracker-tabs--inner.ep-tracker-horizontal [role="tab"][aria-selected="true"].is-complete::after {
+  border-top-color: #ccc;
+}
+
+.status-tracker-tabs--inner.ep-tracker-horizontal [role="tab"][aria-selected="true"].is-complete:hover::after {
+  border-top-color: #bbb;
+}
+
+.status-tracker-tabs--inner.ep-tracker-horizontal .tabs-section--second {
+  border-top: transparent;
+  padding-top: 2em;
+}
+
+
+/* Vertical */
+.status-tracker-tabs--inner.ep-tracker-vertical {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.status-tracker-tabs--inner.ep-tracker-vertical .tabs-section {
+  flex-basis: 50%;
+}
+
+.status-tracker-tabs--inner.ep-tracker-vertical [role="tab"] {
+  width: 100%;
+  border-bottom: 2px solid white;
+}
+
+.status-tracker-tabs--inner.ep-tracker-vertical [role="tab"]:last-child {
+  border-bottom: none;
+}
+
+.status-tracker-tabs--inner.ep-tracker-vertical [role="tab"][aria-selected="true"]::after {
+  border-top: 16px solid transparent;
+  border-left: 16px solid #eee;
+  border-bottom: 16px solid transparent;
+  height: 16px;
+  right: -14px;
+  top: 0;
+  bottom: 0;
+}
+
+.status-tracker-tabs--inner.ep-tracker-vertical [role="tab"][aria-selected="true"]:hover::after {
+  border-left-color: #ddd;
+}
+
+.status-tracker-tabs--inner.ep-tracker-vertical [role="tab"][aria-selected="true"].is-current::after {
+  border-left-color: #222;
+}
+
+.status-tracker-tabs--inner.ep-tracker-vertical [role="tab"][aria-selected="true"].is-current:hover::after {
+  border-left-color: #151515;
+}
+
+.status-tracker-tabs--inner.ep-tracker-vertical [role="tab"][aria-selected="true"].is-complete::after {
+  border-left-color: #ccc;
+}
+
+.status-tracker-tabs--inner.ep-tracker-vertical [role="tab"][aria-selected="true"].is-complete:hover::after {
+  border-left-color: #bbb;
+}
+
+.status-tracker-tabs--inner.ep-tracker-vertical .tabs-section--second {
+  border-left: transparent;
+}
+
+.status-tracker-tabs--inner.ep-tracker-vertical .tabs-section--second [role="tabpanel"] {
+  height: 100%;
+}
+
+.status-tracker-tabs--inner.ep-tracker-vertical .tabs-section--second .tabpanel--inner {
+  height: 100%;
+  width: 100%;
+  display: table;
+  padding: 0 2em;
+}
+
+.status-tracker-tabs--inner.ep-tracker-vertical .tabs-section--second [role="tabpanel"] p {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+
+/* tab styles */
+
+.tab-number {
+  display: block;
+  position: absolute;
+  left: 14px;
+  float: left;
+  background: white;
+  color: #666;
+  font-size: 26px;
+  font-weight: 700;
+  width: 40px;
+  height: 40px;
+  padding: 12px;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+#status-tracker-tabs [role="tab"].is-current .tab-number {
+  color: #222;
+}
+
+.tab-text {
+  display: block;
+  text-align: left;
+  padding-left: 55px;
+  pointer-events: none;
+}
+
+/* tabpanel styles */
+
+.phase-status {
+  color: #888;
+  font-weight: 300;
+  text-transform: uppercase;
+  font-size: 15px;
+  line-height: 1.2;
+  border: 1px solid #bbb;
+  padding: 4px 6px;
+  display: inline-block;
+  margin-bottom: 1.5em;
+}
+
+.phase-status.is-current {
+  color: #222;
+  border: 1px solid #222;
+}
+
+.phase-description {
+  font-size: 20px;
+}
+
+/* Alternate colors */
+
+/* dark is default */
+
+/* red */
+
+#status-tracker-tabs.current--red [role="tab"].is-current {
+  background: #b00;
+}
+
+.current--red .status-tracker-tabs--inner.ep-tracker-horizontal [role="tab"][aria-selected="true"].is-current::after {
+  border-top-color: #b00;
+}
+
+.current--red .status-tracker-tabs--inner.ep-tracker-vertical [role="tab"][aria-selected="true"].is-current::after {
+  border-left-color: #b00;
+}
+
+#status-tracker-tabs.current--red  [role="tab"].is-current .tab-number {
+  color: #b00;
+}
+
+.current--red .phase-status.is-current {
+  color: #b00;
+  border: 1px solid #b00;
+}
+
+#status-tracker-tabs.current--red  [role="tab"].is-current:hover {
+  background: #800;
+}
+
+.current--red  .status-tracker-tabs--inner.ep-tracker-horizontal [role="tab"][aria-selected="true"].is-current:hover::after {
+  border-top-color: #800;
+}
+
+.current--red .status-tracker-tabs--inner.ep-tracker-vertical [role="tab"][aria-selected="true"].is-current:hover::after {
+  border-left-color: #800;
+}
+
+/* violet */
+
+#status-tracker-tabs.current--violet [role="tab"].is-current {
+  background: #851e5e;
+}
+
+.current--violet .status-tracker-tabs--inner.ep-tracker-horizontal [role="tab"][aria-selected="true"].is-current::after {
+  border-top-color: #851e5e;
+}
+
+.current--violet .status-tracker-tabs--inner.ep-tracker-vertical [role="tab"][aria-selected="true"].is-current::after {
+  border-left-color: #851e5e;
+}
+
+#status-tracker-tabs.current--violet  [role="tab"].is-current .tab-number {
+  color: #851e5e;
+}
+
+.current--violet .phase-status.is-current {
+  color: #851e5e;
+  border: 1px solid #851e5e;
+}
+
+#status-tracker-tabs.current--violet  [role="tab"].is-current:hover {
+  background: #70194f;
+}
+
+.current--violet  .status-tracker-tabs--inner.ep-tracker-horizontal [role="tab"][aria-selected="true"].is-current:hover::after {
+  border-top-color: #70194f;
+}
+
+.current--violet .status-tracker-tabs--inner.ep-tracker-vertical [role="tab"][aria-selected="true"].is-current:hover::after {
+  border-left-color: #70194f;
+}
+
+/* teal */
+
+#status-tracker-tabs.current--teal [role="tab"].is-current {
+  background: #1c7c89;
+}
+
+.current--teal .status-tracker-tabs--inner.ep-tracker-horizontal [role="tab"][aria-selected="true"].is-current::after {
+  border-top-color: #1c7c89;
+}
+
+.current--teal .status-tracker-tabs--inner.ep-tracker-vertical [role="tab"][aria-selected="true"].is-current::after {
+  border-left-color: #1c7c89;
+}
+
+#status-tracker-tabs.current--teal  [role="tab"].is-current .tab-number {
+  color: #1c7c89;
+}
+
+.current--teal .phase-status.is-current {
+  color: #1c7c89;
+  border: 1px solid #1c7c89;
+}
+
+#status-tracker-tabs.current--teal  [role="tab"].is-current:hover {
+  background: #186974;
+}
+
+.current--teal  .status-tracker-tabs--inner.ep-tracker-horizontal [role="tab"][aria-selected="true"].is-current:hover::after {
+  border-top-color: #186974;
+}
+
+.current--teal .status-tracker-tabs--inner.ep-tracker-vertical [role="tab"][aria-selected="true"].is-current:hover::after {
+  border-left-color: #186974;
+}
+
+/* green */
+
+#status-tracker-tabs.current--green [role="tab"].is-current {
+  background: #73792d;
+}
+
+.current--green .status-tracker-tabs--inner.ep-tracker-horizontal [role="tab"][aria-selected="true"].is-current::after {
+  border-top-color: #73792d;
+}
+
+.current--green .status-tracker-tabs--inner.ep-tracker-vertical [role="tab"][aria-selected="true"].is-current::after {
+  border-left-color: #73792d;
+}
+
+#status-tracker-tabs.current--green  [role="tab"].is-current .tab-number {
+  color: #73792d;
+}
+
+.current--green .phase-status.is-current {
+  color: #73792d;
+  border: 1px solid #73792d;
+}
+
+#status-tracker-tabs.current--green  [role="tab"].is-current:hover {
+  background: #616626;
+}
+
+.current--green  .status-tracker-tabs--inner.ep-tracker-horizontal [role="tab"][aria-selected="true"].is-current:hover::after {
+  border-top-color: #616626;
+}
+
+.current--green .status-tracker-tabs--inner.ep-tracker-vertical [role="tab"][aria-selected="true"].is-current:hover::after {
+  border-left-color: #616626;
+}
