@@ -64,7 +64,7 @@ function status_tracker_tabs_admin_settings_form($node, &$form_state) {
     }
 
   $form['status_tracker_settings']['current_phase'] = array(
-    '#title' => t('Current Project Phase'),
+    '#title' => t('Current Phase'),
     '#type' => 'select',
     '#options' => $current_phase_options,
     '#default_value' => variable_get('current_phase'),
@@ -264,7 +264,7 @@ function status_tracker_tabs_block_view($delta = '') {
 
 	if ($delta === 'status_tracker_tabs') {
 		$block = array(
-			'subject' => t('Project Status'),
+			'subject' => t('Status Tracker'),
 			'content' => array(
   			'#type' => 'markup',
 				'#markup' => theme ('tracker_tabs_display', $block),
