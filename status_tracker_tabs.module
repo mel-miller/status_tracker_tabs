@@ -1,0 +1,282 @@
+<?php
+
+
+/**
+ * Implements hook_permission().
+ */
+function status_tracker_tabs_permission() {
+  return array(
+    'administer Status Tracker tabs' => array(
+      'title' => t('Administer Status Tracker Tabs'),
+      'description' => t('Administer settings for Status Tracker display '),
+    ),
+  );
+}
+
+
+/**
+ * Implements hook_menu().
+ */
+function status_tracker_tabs_menu() {
+  $items = array();
+
+  // Admin configuration group.
+  $items['admin/config/status-tracker-tabs'] = array(
+    'title' => 'Status Tracker',
+    'description' => 'Status Tracker',
+    'access arguments' => array('administer Status Tracker tabs'),
+  );
+
+  // Admin configuration - Settings.
+  $items['admin/config/status-tracker-tabs/manage'] = array(
+    'title' => 'Status Tracker settings',
+    'description' => 'Manage Status Tracker Tabs settings and configuration.',
+    'access arguments' => array('administer Status Tracker tabs'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('status_tracker_tabs_admin_settings_form'),
+  );
+
+  return $items;
+}
+
+
+/**
+ * Implements hook_form().
+ */
+function status_tracker_tabs_admin_settings_form($node, &$form_state) {
+  $status_tracker_settings = variable_get('status_tracker_settings');
+
+  $form['status_tracker_settings'] = array();
+
+	// $form['status_tracker_settings']['total_phases'] = array(
+	// 	'#title' => t('Total Number of Phases'),
+	// 	'#type' => 'textfield',
+	// 	'#size' => 2,
+	// 	'#maxlength' => 2,
+	// 	'#default_value' => variable_get('total_phases'),
+	// );
+
+  $max_phases = 5; //TODO: Make this value a form field with its own ajax submit button
+
+  $current_phase_options = array();
+    for($i = 1; $i <= $max_phases; $i++){
+      $current_phase_options[$i] = t($i);
+    }
+
+  $form['status_tracker_settings']['current_phase'] = array(
+    '#title' => t('Current Project Phase'),
+    '#type' => 'select',
+    '#options' => $current_phase_options,
+    '#default_value' => variable_get('current_phase'),
+  );
+
+  $form['status_tracker_settings']['phase_language'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Phase Label Settings'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+
+  $form['status_tracker_settings']['phase_language']['current_phase_color'] = array(
+    '#title' => t('Current Phase Label Color'),
+    '#type' => 'select',
+    '#options' => array(
+      'dark' => 'Dark',
+      'red' => 'Red',
+      'violet' => 'Violet',
+      'teal' => 'Teal',
+      'green' => 'Green'
+    ),
+    '#default_value' => variable_get('current_phase_color'),
+  );
+
+  $form['status_tracker_settings']['phase_language']['current_phase_label'] = array(
+    '#title' => t('Current Phase Label'),
+    '#type' => 'textfield',
+    '#size' => 60,
+    '#maxlength' => 60,
+    '#default_value' => variable_get('current_phase_label'),
+  );
+
+  $form['status_tracker_settings']['phase_language']['completed_phase_label'] = array(
+    '#title' => t('Completed Phase Label'),
+    '#type' => 'textfield',
+    '#size' => 60,
+    '#maxlength' => 60,
+    '#default_value' => variable_get('completed_phase_label'),
+  );
+
+  $form['status_tracker_settings']['phase_language']['upcoming_phase_label'] = array(
+    '#title' => t('Upcoming Phase Label'),
+    '#type' => 'textfield',
+    '#size' => 60,
+    '#maxlength' => 60,
+    '#default_value' => variable_get('upcoming_phase_label'),
+  );
+
+  //generate phase text fields based on number of phases
+  for($i = 1; $i <= $max_phases; $i++) {
+
+    $form['status_tracker_settings']['phase_text_fieldset'][$i] = array(
+      '#title' => t('Phase ' . $i),
+      '#type' => 'fieldset',
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+    );
+
+    $form['status_tracker_settings']['phase_text_fieldset'][$i]['title_' . $i] = array(
+      '#title' => t('Title'),
+      '#type' => 'textfield',
+      '#size' => 60,
+      '#maxlength' => 60,
+      '#default_value' => variable_get('title_' . $i),
+    );
+
+    $textvalue = variable_get('description_' . $i, array('value' => '', 'format' => NULL));
+    $form['status_tracker_settings']['phase_text_fieldset'][$i]['description_' . $i] = array(
+      '#type'     => 'text_format',
+      '#title'    => 'Description',
+      '#default_value' => $textvalue['value'],
+      '#weight'   => 1,
+      '#format' => $textvalue['format'],
+      '#required' => FALSE,
+      '#maxlength_js' => TRUE,
+      '#maxlength' => 140,
+    );
+
+  }//end for loop
+
+  return system_settings_form($form);
+}
+
+
+/**
+ * Implements hook_theme().
+ */
+function status_tracker_tabs_theme() {
+  return array(
+    'tracker_tabs_display' => array(
+      'template' => 'tracker-tabs-display',
+    ),
+  );
+}
+
+
+/**
+ * convert titles to friendly strings to use as ids
+ */
+function status_tracker_tabs_friendly_ids($string) {
+  //Lower case everything
+  $string = strtolower($string);
+  //Make alphanumeric (removes all other characters)
+  $string = preg_replace("/[^a-z0-9_\s-]/", "", $string);
+  //Convert whitespaces and underscore to dash
+  $string = preg_replace("/[\s_]/", "-", $string);
+  return $string;
+}
+
+/**
+ * Set module variables.
+ */
+function status_tracker_tabs_preprocess_tracker_tabs_display(&$variables) {
+	//helper variables
+	$max_phases = 5;
+	$current_phase = variable_get('current_phase');
+	$complete = ' is-complete';
+	$current = ' is-current';
+  $current_label = variable_get('current_phase_label');
+  $completed_label = variable_get('completed_phase_label');
+  $upcoming_label = variable_get('upcoming_phase_label');
+
+	//pass max phases to template
+	$variables['max_phases'] = $max_phases;
+
+  //pass current phase label color to template
+  $variables['current_phase_color'] = variable_get('current_phase_color');
+
+	//loop through each phase to create variables
+	for ($i = 1; $i <= $max_phases; $i++) {
+		//phase title
+		$title = 'title_'.$i;
+		$variables[$title] = variable_get($title);
+		//phase description
+		$desc = 'description_'.$i;
+		$variables[$desc] = variable_get($desc)['value'];
+		//phase #id
+		$id = 'id_'.$i;
+		$variables[$id] = status_tracker_tabs_friendly_ids(variable_get($title));
+		//default hidden attribute
+		$hidden = 'id_'.$i.'_hidden';
+		$variables[$hidden] = 'hidden';
+		//default aria-current value
+		$step = 'id_'.$i.'_step';
+		$variables[$step] = 'false';
+		//default aria-selected value
+		$selected = 'id_'.$i.'_selected';
+		$variables[$selected] = 'false';
+		//default id_classes value
+		$classes = 'id_'.$i.'_classes';
+		$variables[$classes] = '';
+    //default phase_status value
+    $phase_status = 'phase_status_'.$i;
+    $variables[$phase_status] = $upcoming_label;
+
+
+		//change values based on current phase
+		if ($current_phase == $i) {
+			$variables[$hidden] = '';
+			$variables[$step] = 'step';
+			$variables[$selected] = 'true';
+			$variables[$classes] = $current;
+      $variables[$phase_status] = $current_label;
+		} else if ($current_phase > $i) {
+			$variables[$classes] = $complete;
+      $variables[$phase_status] = $completed_label;
+		}
+
+	}//end for loop
+}
+
+
+/**
+ * Implements hook_block_info().
+ */
+ function status_tracker_tabs_block_info() {
+  $blocks['status_tracker_tabs'] = array(
+    // The name that will appear in the block list.
+    'info' => t('Project Tracker Tabs'),
+    // Default setting.
+    'cache' => DRUPAL_CACHE_PER_ROLE,
+  );
+  return $blocks;
+}
+
+
+/**
+ * Implements hook_block_view().
+ */
+function status_tracker_tabs_block_view($delta = '') {
+
+	$module_path = drupal_get_path('module', 'status_tracker_tabs');
+    $js_path = $module_path . '/js/';
+    $css_path = $module_path . '/css/';
+
+	if ($delta === 'status_tracker_tabs') {
+		$block = array(
+			'subject' => t('Project Status'),
+			'content' => array(
+  			'#type' => 'markup',
+				'#markup' => theme ('tracker_tabs_display', $block),
+				'#attached' => array(
+					'js' => array(
+						$js_path . 'status-tracker-tabs.js'
+					),
+          'css' => array(
+						$css_path . 'status-tracker-tabs.css'
+					),
+				),
+			),
+		);
+		return $block;
+	}
+}
