@@ -94,17 +94,17 @@
 /* Horizontal and vertical classes are applied and removed via js */
 
 /* Horizontal */
-.status-tracker-tabs--inner.ep-tracker-horizontal .tabs-section--first {
+.status-tracker-tabs--inner.status-tracker-horizontal .tabs-section--first {
   display: flex;
   justify-content: space-between;
   align-items: stretch;
 }
 
-.status-tracker-tabs--inner.ep-tracker-horizontal [role="tab"] {
+.status-tracker-tabs--inner.status-tracker-horizontal [role="tab"] {
   flex-basis: 19.85%;
 }
 
-.status-tracker-tabs--inner.ep-tracker-horizontal [role="tab"][aria-selected="true"]::after {
+.status-tracker-tabs--inner.status-tracker-horizontal [role="tab"][aria-selected="true"]::after {
   border-right: 16px solid transparent;
   border-top: 16px solid #eee;
   border-left: 16px solid transparent;
@@ -114,53 +114,53 @@
   right: 0;
 }
 
-.status-tracker-tabs--inner.ep-tracker-horizontal [role="tab"][aria-selected="true"]:hover::after {
+.status-tracker-tabs--inner.status-tracker-horizontal [role="tab"][aria-selected="true"]:hover::after {
   border-top-color: #ddd;
 }
 
-.status-tracker-tabs--inner.ep-tracker-horizontal [role="tab"][aria-selected="true"].is-current::after {
+.status-tracker-tabs--inner.status-tracker-horizontal [role="tab"][aria-selected="true"].is-current::after {
   border-top-color: #222;
 }
 
-.status-tracker-tabs--inner.ep-tracker-horizontal [role="tab"][aria-selected="true"].is-current:hover::after {
+.status-tracker-tabs--inner.status-tracker-horizontal [role="tab"][aria-selected="true"].is-current:hover::after {
   border-top-color: #151515;
 }
 
-.status-tracker-tabs--inner.ep-tracker-horizontal [role="tab"][aria-selected="true"].is-complete::after {
+.status-tracker-tabs--inner.status-tracker-horizontal [role="tab"][aria-selected="true"].is-complete::after {
   border-top-color: #ccc;
 }
 
-.status-tracker-tabs--inner.ep-tracker-horizontal [role="tab"][aria-selected="true"].is-complete:hover::after {
+.status-tracker-tabs--inner.status-tracker-horizontal [role="tab"][aria-selected="true"].is-complete:hover::after {
   border-top-color: #bbb;
 }
 
-.status-tracker-tabs--inner.ep-tracker-horizontal .tabs-section--second {
+.status-tracker-tabs--inner.status-tracker-horizontal .tabs-section--second {
   border-top: transparent;
   padding-top: 2em;
 }
 
 
 /* Vertical */
-.status-tracker-tabs--inner.ep-tracker-vertical {
+.status-tracker-tabs--inner.status-tracker-vertical {
   display: flex;
   justify-content: space-between;
   align-items: stretch;
 }
 
-.status-tracker-tabs--inner.ep-tracker-vertical .tabs-section {
+.status-tracker-tabs--inner.status-tracker-vertical .tabs-section {
   flex-basis: 50%;
 }
 
-.status-tracker-tabs--inner.ep-tracker-vertical [role="tab"] {
+.status-tracker-tabs--inner.status-tracker-vertical [role="tab"] {
   width: 100%;
   border-bottom: 2px solid white;
 }
 
-.status-tracker-tabs--inner.ep-tracker-vertical [role="tab"]:last-child {
+.status-tracker-tabs--inner.status-tracker-vertical [role="tab"]:last-child {
   border-bottom: none;
 }
 
-.status-tracker-tabs--inner.ep-tracker-vertical [role="tab"][aria-selected="true"]::after {
+.status-tracker-tabs--inner.status-tracker-vertical [role="tab"][aria-selected="true"]::after {
   border-top: 16px solid transparent;
   border-left: 16px solid #eee;
   border-bottom: 16px solid transparent;
@@ -170,42 +170,42 @@
   bottom: 0;
 }
 
-.status-tracker-tabs--inner.ep-tracker-vertical [role="tab"][aria-selected="true"]:hover::after {
+.status-tracker-tabs--inner.status-tracker-vertical [role="tab"][aria-selected="true"]:hover::after {
   border-left-color: #ddd;
 }
 
-.status-tracker-tabs--inner.ep-tracker-vertical [role="tab"][aria-selected="true"].is-current::after {
+.status-tracker-tabs--inner.status-tracker-vertical [role="tab"][aria-selected="true"].is-current::after {
   border-left-color: #222;
 }
 
-.status-tracker-tabs--inner.ep-tracker-vertical [role="tab"][aria-selected="true"].is-current:hover::after {
+.status-tracker-tabs--inner.status-tracker-vertical [role="tab"][aria-selected="true"].is-current:hover::after {
   border-left-color: #151515;
 }
 
-.status-tracker-tabs--inner.ep-tracker-vertical [role="tab"][aria-selected="true"].is-complete::after {
+.status-tracker-tabs--inner.status-tracker-vertical [role="tab"][aria-selected="true"].is-complete::after {
   border-left-color: #ccc;
 }
 
-.status-tracker-tabs--inner.ep-tracker-vertical [role="tab"][aria-selected="true"].is-complete:hover::after {
+.status-tracker-tabs--inner.status-tracker-vertical [role="tab"][aria-selected="true"].is-complete:hover::after {
   border-left-color: #bbb;
 }
 
-.status-tracker-tabs--inner.ep-tracker-vertical .tabs-section--second {
+.status-tracker-tabs--inner.status-tracker-vertical .tabs-section--second {
   border-left: transparent;
 }
 
-.status-tracker-tabs--inner.ep-tracker-vertical .tabs-section--second [role="tabpanel"] {
+.status-tracker-tabs--inner.status-tracker-vertical .tabs-section--second [role="tabpanel"] {
   height: 100%;
 }
 
-.status-tracker-tabs--inner.ep-tracker-vertical .tabs-section--second .tabpanel--inner {
+.status-tracker-tabs--inner.status-tracker-vertical .tabs-section--second .tabpanel--inner {
   height: 100%;
   width: 100%;
   display: table;
   padding: 0 2em;
 }
 
-.status-tracker-tabs--inner.ep-tracker-vertical .tabs-section--second [role="tabpanel"] p {
+.status-tracker-tabs--inner.status-tracker-vertical .tabs-section--second [role="tabpanel"] p {
   display: table-cell;
   vertical-align: middle;
 }
@@ -273,11 +273,11 @@
   background: #b00;
 }
 
-.current--red .status-tracker-tabs--inner.ep-tracker-horizontal [role="tab"][aria-selected="true"].is-current::after {
+.current--red .status-tracker-tabs--inner.status-tracker-horizontal [role="tab"][aria-selected="true"].is-current::after {
   border-top-color: #b00;
 }
 
-.current--red .status-tracker-tabs--inner.ep-tracker-vertical [role="tab"][aria-selected="true"].is-current::after {
+.current--red .status-tracker-tabs--inner.status-tracker-vertical [role="tab"][aria-selected="true"].is-current::after {
   border-left-color: #b00;
 }
 
@@ -294,11 +294,11 @@
   background: #800;
 }
 
-.current--red  .status-tracker-tabs--inner.ep-tracker-horizontal [role="tab"][aria-selected="true"].is-current:hover::after {
+.current--red  .status-tracker-tabs--inner.status-tracker-horizontal [role="tab"][aria-selected="true"].is-current:hover::after {
   border-top-color: #800;
 }
 
-.current--red .status-tracker-tabs--inner.ep-tracker-vertical [role="tab"][aria-selected="true"].is-current:hover::after {
+.current--red .status-tracker-tabs--inner.status-tracker-vertical [role="tab"][aria-selected="true"].is-current:hover::after {
   border-left-color: #800;
 }
 
@@ -308,11 +308,11 @@
   background: #851e5e;
 }
 
-.current--violet .status-tracker-tabs--inner.ep-tracker-horizontal [role="tab"][aria-selected="true"].is-current::after {
+.current--violet .status-tracker-tabs--inner.status-tracker-horizontal [role="tab"][aria-selected="true"].is-current::after {
   border-top-color: #851e5e;
 }
 
-.current--violet .status-tracker-tabs--inner.ep-tracker-vertical [role="tab"][aria-selected="true"].is-current::after {
+.current--violet .status-tracker-tabs--inner.status-tracker-vertical [role="tab"][aria-selected="true"].is-current::after {
   border-left-color: #851e5e;
 }
 
@@ -329,11 +329,11 @@
   background: #70194f;
 }
 
-.current--violet  .status-tracker-tabs--inner.ep-tracker-horizontal [role="tab"][aria-selected="true"].is-current:hover::after {
+.current--violet  .status-tracker-tabs--inner.status-tracker-horizontal [role="tab"][aria-selected="true"].is-current:hover::after {
   border-top-color: #70194f;
 }
 
-.current--violet .status-tracker-tabs--inner.ep-tracker-vertical [role="tab"][aria-selected="true"].is-current:hover::after {
+.current--violet .status-tracker-tabs--inner.status-tracker-vertical [role="tab"][aria-selected="true"].is-current:hover::after {
   border-left-color: #70194f;
 }
 
@@ -343,11 +343,11 @@
   background: #1c7c89;
 }
 
-.current--teal .status-tracker-tabs--inner.ep-tracker-horizontal [role="tab"][aria-selected="true"].is-current::after {
+.current--teal .status-tracker-tabs--inner.status-tracker-horizontal [role="tab"][aria-selected="true"].is-current::after {
   border-top-color: #1c7c89;
 }
 
-.current--teal .status-tracker-tabs--inner.ep-tracker-vertical [role="tab"][aria-selected="true"].is-current::after {
+.current--teal .status-tracker-tabs--inner.status-tracker-vertical [role="tab"][aria-selected="true"].is-current::after {
   border-left-color: #1c7c89;
 }
 
@@ -364,11 +364,11 @@
   background: #186974;
 }
 
-.current--teal  .status-tracker-tabs--inner.ep-tracker-horizontal [role="tab"][aria-selected="true"].is-current:hover::after {
+.current--teal  .status-tracker-tabs--inner.status-tracker-horizontal [role="tab"][aria-selected="true"].is-current:hover::after {
   border-top-color: #186974;
 }
 
-.current--teal .status-tracker-tabs--inner.ep-tracker-vertical [role="tab"][aria-selected="true"].is-current:hover::after {
+.current--teal .status-tracker-tabs--inner.status-tracker-vertical [role="tab"][aria-selected="true"].is-current:hover::after {
   border-left-color: #186974;
 }
 
@@ -378,11 +378,11 @@
   background: #73792d;
 }
 
-.current--green .status-tracker-tabs--inner.ep-tracker-horizontal [role="tab"][aria-selected="true"].is-current::after {
+.current--green .status-tracker-tabs--inner.status-tracker-horizontal [role="tab"][aria-selected="true"].is-current::after {
   border-top-color: #73792d;
 }
 
-.current--green .status-tracker-tabs--inner.ep-tracker-vertical [role="tab"][aria-selected="true"].is-current::after {
+.current--green .status-tracker-tabs--inner.status-tracker-vertical [role="tab"][aria-selected="true"].is-current::after {
   border-left-color: #73792d;
 }
 
@@ -399,10 +399,10 @@
   background: #616626;
 }
 
-.current--green  .status-tracker-tabs--inner.ep-tracker-horizontal [role="tab"][aria-selected="true"].is-current:hover::after {
+.current--green  .status-tracker-tabs--inner.status-tracker-horizontal [role="tab"][aria-selected="true"].is-current:hover::after {
   border-top-color: #616626;
 }
 
-.current--green .status-tracker-tabs--inner.ep-tracker-vertical [role="tab"][aria-selected="true"].is-current:hover::after {
+.current--green .status-tracker-tabs--inner.status-tracker-vertical [role="tab"][aria-selected="true"].is-current:hover::after {
   border-left-color: #616626;
 }
