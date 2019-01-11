@@ -1,14 +1,4 @@
-/* reset values from standard buttons */
-#status-tracker-tabs button {
-  background: none;
-  color: #666;
-  text-transform: none;
-  box-shadow: 0 0;
-  letter-spacing: 0;
-  border-radius: 0;
-  position: relative;
-}
-
+/* helper styles and resets */
 .visuallyhidden {
   position: absolute;
   overflow: hidden;
@@ -17,24 +7,36 @@
   margin: -1px; padding: 0; border: 0;
 }
 
-#status-tracker-tabs [role="tabpanel"]:focus {
-  border: 2px dotted #666;
-  outline: 0;
-  padding: 1em 0 0.5em;
+button {
+  border: none;
+  overflow: visible;
+  -webkit-appearance: none;
 }
 
+/* block */
+#status-tracker-tabs {
+  margin: 1em 0 3em;
+  font-family: Helvetica, Arial, sans-serif;
+  text-align: center;
+}
+
+/* tabs */
 /* common styles to horizontal and vertical */
 #status-tracker-tabs [role="tab"] {
   position: relative;
   margin: 0;
-  padding: 1.2em 0.8em;
+  padding: 1em 0.8em;
   overflow: visible;
   background: #eee;
   color: #222;
-  text-align: center;
-  font-size: 1.7rem;
-  font-weight: 400;
-  line-height: 115%;
+  font-size: 1rem;
+  font-weight: normal;
+  line-height: 1.2;
+}
+
+.tab-text {
+  display: block;
+  pointer-events: none;
 }
 
 #status-tracker-tabs [role="tab"]:hover {
@@ -47,7 +49,9 @@
 }
 
 #status-tracker-tabs [role="tab"]:focus {
+  outline: 2px dotted #444;
   outline-offset: 0;
+
 }
 
 #status-tracker-tabs [role="tab"].is-current {
@@ -90,6 +94,12 @@
   text-align: center;
 }
 
+#status-tracker-tabs [role="tabpanel"]:focus {
+  border: 2px dotted #666;
+  outline: 0;
+  padding: 1em 0 0.5em;
+}
+
 
 /* Horizontal and vertical classes are applied and removed via js */
 
@@ -108,7 +118,7 @@
   border-right: 16px solid transparent;
   border-top: 16px solid #eee;
   border-left: 16px solid transparent;
-  width: 16px;
+  width: 0;
   bottom: -14px;
   left: 0;
   right: 0;
@@ -136,7 +146,7 @@
 
 .status-tracker-tabs--inner.status-tracker-horizontal .tabs-section--second {
   border-top: transparent;
-  padding-top: 2em;
+  padding-top: 1em;
 }
 
 
@@ -164,7 +174,7 @@
   border-top: 16px solid transparent;
   border-left: 16px solid #eee;
   border-bottom: 16px solid transparent;
-  height: 16px;
+  height: 0;
   right: -14px;
   top: 0;
   bottom: 0;
@@ -202,7 +212,6 @@
   height: 100%;
   width: 100%;
   display: table;
-  padding: 0 2em;
 }
 
 .status-tracker-tabs--inner.status-tracker-vertical .tabs-section--second [role="tabpanel"] p {
@@ -232,12 +241,7 @@
   color: #222;
 }
 
-.tab-text {
-  display: block;
-  text-align: left;
-  padding-left: 55px;
-  pointer-events: none;
-} */
+ */
 
 /* tabpanel styles */
 .phase-status {
