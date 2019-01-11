@@ -167,6 +167,7 @@ function status_tracker_tabs_admin_settings_form($node, &$form_state) {
 function status_tracker_tabs_theme() {
   return array(
     'tracker_tabs_display' => array(
+      'path' =>  drupal_get_path('module', 'status_tracker_tabs') . '/templates',
       'template' => 'tracker-tabs-display',
     ),
   );
