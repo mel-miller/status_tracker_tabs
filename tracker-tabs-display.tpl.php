@@ -11,9 +11,9 @@
           $classes = 'id_'.$i.'_classes';
         ?>
         <button role="tab" aria-selected="<?php print $$selected ?>" aria-current="<?php print $$step ?>" aria-controls="<?php print $$id ?>-tab" id="<?php print $$id ?>" class="tab-item <?php print $$classes ?>">
-            <span class="tab-content tab-number">
-              <?php print $i ?>
-            </span>
+            <!-- <span class="tab-content tab-number"> -->
+              <!-- <?php print $i ?> -->
+            <!-- </span> -->
             <span class="tab-content tab-text">
               <span class="visuallyhidden">Phase: <?php print $i ?>, </span>
               <?php print $$title ?>

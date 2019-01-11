@@ -212,8 +212,7 @@
 
 
 /* tab styles */
-
-.tab-number {
+/* .tab-number {
   display: block;
   position: absolute;
   left: 14px;
@@ -238,10 +237,9 @@
   text-align: left;
   padding-left: 55px;
   pointer-events: none;
-}
+} */
 
 /* tabpanel styles */
-
 .phase-status {
   color: #888;
   font-weight: 300;
@@ -264,7 +262,6 @@
 }
 
 /* Alternate colors */
-
 /* dark is default */
 
 /* red */
