@@ -48,18 +48,6 @@ function status_tracker_tabs_admin_settings_form($node, &$form_state) {
 
   $form['status_tracker_settings'] = array();
 
-  $total_phase_options = array();
-  for($i = 3; $i <= 8; $i++){
-    $total_phase_options[$i] = t($i);
-  }
-
-	$form['status_tracker_settings']['total_phases'] = array(
-		'#title' => t('Total Number of Phases'),
-    '#type' => 'select',
-    '#options' => $total_phase_options,
-		'#default_value' => variable_get('total_phases'),
-	);
-
   $max_phases = 5; //TODO: Make this value a form field with its own ajax submit button
 
   $current_phase_options = array();
@@ -74,14 +62,26 @@ function status_tracker_tabs_admin_settings_form($node, &$form_state) {
     '#default_value' => variable_get('current_phase'),
   );
 
-  $form['status_tracker_settings']['phase_language'] = array(
+  $form['status_tracker_settings']['basic_configuration'] = array(
     '#type' => 'fieldset',
-    '#title' => t('Phase Label Settings'),
+    '#title' => t('Basic Configuration'),
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   );
 
-  $form['status_tracker_settings']['phase_language']['current_phase_color'] = array(
+  $total_phase_options = array();
+  for($i = 3; $i <= 8; $i++){
+    $total_phase_options[$i] = t($i);
+  }
+
+  $form['status_tracker_settings']['basic_configuration']['total_phases'] = array(
+    '#title' => t('Total Number of Phases'),
+    '#type' => 'select',
+    '#options' => $total_phase_options,
+    '#default_value' => variable_get('total_phases'),
+  );
+
+  $form['status_tracker_settings']['basic_configuration']['current_phase_color'] = array(
     '#title' => t('Current Phase Label Color'),
     '#type' => 'select',
     '#options' => array(
@@ -94,7 +94,7 @@ function status_tracker_tabs_admin_settings_form($node, &$form_state) {
     '#default_value' => variable_get('current_phase_color'),
   );
 
-  $form['status_tracker_settings']['phase_language']['current_phase_label'] = array(
+  $form['status_tracker_settings']['basic_configuration']['current_phase_label'] = array(
     '#title' => t('Current Phase Label'),
     '#type' => 'textfield',
     '#size' => 60,
@@ -102,7 +102,7 @@ function status_tracker_tabs_admin_settings_form($node, &$form_state) {
     '#default_value' => variable_get('current_phase_label'),
   );
 
-  $form['status_tracker_settings']['phase_language']['completed_phase_label'] = array(
+  $form['status_tracker_settings']['basic_configuration']['completed_phase_label'] = array(
     '#title' => t('Completed Phase Label'),
     '#type' => 'textfield',
     '#size' => 60,
@@ -110,7 +110,7 @@ function status_tracker_tabs_admin_settings_form($node, &$form_state) {
     '#default_value' => variable_get('completed_phase_label'),
   );
 
-  $form['status_tracker_settings']['phase_language']['upcoming_phase_label'] = array(
+  $form['status_tracker_settings']['basic_configuration']['upcoming_phase_label'] = array(
     '#title' => t('Upcoming Phase Label'),
     '#type' => 'textfield',
     '#size' => 60,
@@ -118,17 +118,24 @@ function status_tracker_tabs_admin_settings_form($node, &$form_state) {
     '#default_value' => variable_get('upcoming_phase_label'),
   );
 
+  $form['status_tracker_settings']['phase_content'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Phase Content'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
+
   //generate phase text fields based on number of phases
   for($i = 1; $i <= $max_phases; $i++) {
 
-    $form['status_tracker_settings']['phase_text_fieldset'][$i] = array(
+    $form['status_tracker_settings']['phase_content']['phase_text_fieldset'][$i] = array(
       '#title' => t('Phase ' . $i),
       '#type' => 'fieldset',
       '#collapsible' => TRUE,
       '#collapsed' => TRUE,
     );
 
-    $form['status_tracker_settings']['phase_text_fieldset'][$i]['title_' . $i] = array(
+    $form['status_tracker_settings']['phase_content']['phase_text_fieldset'][$i]['title_' . $i] = array(
       '#title' => t('Title'),
       '#type' => 'textfield',
       '#size' => 60,
@@ -137,7 +144,7 @@ function status_tracker_tabs_admin_settings_form($node, &$form_state) {
     );
 
     $textvalue = variable_get('description_' . $i, array('value' => '', 'format' => NULL));
-    $form['status_tracker_settings']['phase_text_fieldset'][$i]['description_' . $i] = array(
+    $form['status_tracker_settings']['phase_content']['phase_text_fieldset'][$i]['description_' . $i] = array(
       '#type'     => 'text_format',
       '#title'    => 'Description',
       '#default_value' => $textvalue['value'],
