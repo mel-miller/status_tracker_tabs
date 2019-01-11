@@ -48,20 +48,24 @@ function status_tracker_tabs_admin_settings_form($node, &$form_state) {
 
   $form['status_tracker_settings'] = array();
 
-	// $form['status_tracker_settings']['total_phases'] = array(
-	// 	'#title' => t('Total Number of Phases'),
-	// 	'#type' => 'textfield',
-	// 	'#size' => 2,
-	// 	'#maxlength' => 2,
-	// 	'#default_value' => variable_get('total_phases'),
-	// );
+  $total_phase_options = array();
+  for($i = 3; $i <= 8; $i++){
+    $total_phase_options[$i] = t($i);
+  }
+
+	$form['status_tracker_settings']['total_phases'] = array(
+		'#title' => t('Total Number of Phases'),
+    '#type' => 'select',
+    '#options' => $total_phase_options,
+		'#default_value' => variable_get('total_phases'),
+	);
 
   $max_phases = 5; //TODO: Make this value a form field with its own ajax submit button
 
   $current_phase_options = array();
-    for($i = 1; $i <= $max_phases; $i++){
-      $current_phase_options[$i] = t($i);
-    }
+  for($i = 1; $i <= $max_phases; $i++){
+    $current_phase_options[$i] = t($i);
+  }
 
   $form['status_tracker_settings']['current_phase'] = array(
     '#title' => t('Current Phase'),
