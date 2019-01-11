@@ -46,38 +46,40 @@ function status_tracker_tabs_menu() {
 function status_tracker_tabs_admin_settings_form($node, &$form_state) {
   $status_tracker_settings = variable_get('status_tracker_settings');
 
-  $form['status_tracker_settings'] = array();
-
-	// $form['status_tracker_settings']['total_phases'] = array(
-	// 	'#title' => t('Total Number of Phases'),
-	// 	'#type' => 'textfield',
-	// 	'#size' => 2,
-	// 	'#maxlength' => 2,
-	// 	'#default_value' => variable_get('total_phases'),
-	// );
-
-  $max_phases = 5; //TODO: Make this value a form field with its own ajax submit button
-
-  $current_phase_options = array();
-    for($i = 1; $i <= $max_phases; $i++){
-      $current_phase_options[$i] = t($i);
-    }
-
-  $form['status_tracker_settings']['current_phase'] = array(
-    '#title' => t('Current Phase'),
-    '#type' => 'select',
-    '#options' => $current_phase_options,
-    '#default_value' => variable_get('current_phase'),
+  $form['status_tracker_settings'] = array(
+    '#prefix' => '<div id="form-content-div">',
+    '#suffix' => '</div>',
   );
 
-  $form['status_tracker_settings']['phase_language'] = array(
+  // basic configuration fieldset
+  $form['status_tracker_settings']['basic_configuration'] = array(
     '#type' => 'fieldset',
-    '#title' => t('Phase Label Settings'),
+    '#title' => t('Basic Configuration'),
     '#collapsible' => TRUE,
-    '#collapsed' => TRUE,
+    '#collapsed' => FALSE,
   );
 
-  $form['status_tracker_settings']['phase_language']['current_phase_color'] = array(
+  $total_phase_options = array();
+  for($i = 3; $i <= 7; $i++){
+    $total_phase_options[$i] = t($i);
+  }
+
+  $form['status_tracker_settings']['basic_configuration']['total_phases'] = array(
+    '#title' => t('Total Number of Phases'),
+    '#type' => 'select',
+    '#options' => $total_phase_options,
+    '#default_value' => variable_get('total_phases'),
+    '#ajax' => array(
+      'callback' => 'ajax_phase_content_callback',
+      'wrapper' => 'form-content-div',
+      'method' => 'replace',
+      'effect' => 'fade',
+    ),
+  );
+
+  $max_phases = (isset($form_state['values']['total_phases'])) ? $form_state['values']['total_phases'] : variable_get('total_phases');
+
+  $form['status_tracker_settings']['basic_configuration']['current_phase_color'] = array(
     '#title' => t('Current Phase Label Color'),
     '#type' => 'select',
     '#options' => array(
@@ -90,7 +92,7 @@ function status_tracker_tabs_admin_settings_form($node, &$form_state) {
     '#default_value' => variable_get('current_phase_color'),
   );
 
-  $form['status_tracker_settings']['phase_language']['current_phase_label'] = array(
+  $form['status_tracker_settings']['basic_configuration']['current_phase_label'] = array(
     '#title' => t('Current Phase Label'),
     '#type' => 'textfield',
     '#size' => 60,
@@ -98,7 +100,7 @@ function status_tracker_tabs_admin_settings_form($node, &$form_state) {
     '#default_value' => variable_get('current_phase_label'),
   );
 
-  $form['status_tracker_settings']['phase_language']['completed_phase_label'] = array(
+  $form['status_tracker_settings']['basic_configuration']['completed_phase_label'] = array(
     '#title' => t('Completed Phase Label'),
     '#type' => 'textfield',
     '#size' => 60,
@@ -106,7 +108,7 @@ function status_tracker_tabs_admin_settings_form($node, &$form_state) {
     '#default_value' => variable_get('completed_phase_label'),
   );
 
-  $form['status_tracker_settings']['phase_language']['upcoming_phase_label'] = array(
+  $form['status_tracker_settings']['basic_configuration']['upcoming_phase_label'] = array(
     '#title' => t('Upcoming Phase Label'),
     '#type' => 'textfield',
     '#size' => 60,
@@ -114,17 +116,45 @@ function status_tracker_tabs_admin_settings_form($node, &$form_state) {
     '#default_value' => variable_get('upcoming_phase_label'),
   );
 
+  // current phase fieldset
+  $form['status_tracker_settings']['current_phase_wrapper'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Current Phase'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
+
+  $current_phase_options = array();
+  for($i = 1; $i <= $max_phases; $i++){
+    $current_phase_options[$i] = t($i);
+  }
+
+  $form['status_tracker_settings']['current_phase_wrapper']['current_phase'] = array(
+    '#title' => t('Current Phase'),
+    '#type' => 'select',
+    '#options' => $current_phase_options,
+    '#default_value' => variable_get('current_phase'),
+  );
+
+  // phase content fieldset
+  $form['status_tracker_settings']['phase_content'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Phase Content'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
+
   //generate phase text fields based on number of phases
   for($i = 1; $i <= $max_phases; $i++) {
 
-    $form['status_tracker_settings']['phase_text_fieldset'][$i] = array(
+    $form['status_tracker_settings']['phase_content']['phase_text_fieldset'][$i] = array(
       '#title' => t('Phase ' . $i),
       '#type' => 'fieldset',
       '#collapsible' => TRUE,
       '#collapsed' => TRUE,
     );
 
-    $form['status_tracker_settings']['phase_text_fieldset'][$i]['title_' . $i] = array(
+    $form['status_tracker_settings']['phase_content']['phase_text_fieldset'][$i]['title_' . $i] = array(
       '#title' => t('Title'),
       '#type' => 'textfield',
       '#size' => 60,
@@ -133,7 +163,7 @@ function status_tracker_tabs_admin_settings_form($node, &$form_state) {
     );
 
     $textvalue = variable_get('description_' . $i, array('value' => '', 'format' => NULL));
-    $form['status_tracker_settings']['phase_text_fieldset'][$i]['description_' . $i] = array(
+    $form['status_tracker_settings']['phase_content']['phase_text_fieldset'][$i]['description_' . $i] = array(
       '#type'     => 'text_format',
       '#title'    => 'Description',
       '#default_value' => $textvalue['value'],
@@ -149,16 +179,11 @@ function status_tracker_tabs_admin_settings_form($node, &$form_state) {
   return system_settings_form($form);
 }
 
-
 /**
- * Implements hook_theme().
+ * Callback to refresh phase content fieldset based on the number of phases
  */
-function status_tracker_tabs_theme() {
-  return array(
-    'tracker_tabs_display' => array(
-      'template' => 'tracker-tabs-display',
-    ),
-  );
+function ajax_phase_content_callback($form, $form_state) {
+  return $form['status_tracker_settings'];
 }
 
 
@@ -180,7 +205,7 @@ function status_tracker_tabs_friendly_ids($string) {
  */
 function status_tracker_tabs_preprocess_tracker_tabs_display(&$variables) {
 	//helper variables
-	$max_phases = 5;
+	$max_phases = variable_get('total_phases');
 	$current_phase = variable_get('current_phase');
 	$complete = ' is-complete';
 	$current = ' is-current';
@@ -237,6 +262,18 @@ function status_tracker_tabs_preprocess_tracker_tabs_display(&$variables) {
 	}//end for loop
 }
 
+
+/**
+ * Implements hook_theme().
+ */
+function status_tracker_tabs_theme() {
+  return array(
+    'tracker_tabs_display' => array(
+      'path' =>  drupal_get_path('module', 'status_tracker_tabs') . '/templates',
+      'template' => 'tracker-tabs-display',
+    ),
+  );
+}
 
 /**
  * Implements hook_block_info().
