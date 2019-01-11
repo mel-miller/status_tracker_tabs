@@ -46,31 +46,21 @@ function status_tracker_tabs_menu() {
 function status_tracker_tabs_admin_settings_form($node, &$form_state) {
   $status_tracker_settings = variable_get('status_tracker_settings');
 
-  $form['status_tracker_settings'] = array();
-
-  $max_phases = 5; //TODO: Make this value a form field with its own ajax submit button
-
-  $current_phase_options = array();
-  for($i = 1; $i <= $max_phases; $i++){
-    $current_phase_options[$i] = t($i);
-  }
-
-  $form['status_tracker_settings']['current_phase'] = array(
-    '#title' => t('Current Phase'),
-    '#type' => 'select',
-    '#options' => $current_phase_options,
-    '#default_value' => variable_get('current_phase'),
+  $form['status_tracker_settings'] = array(
+    '#prefix' => '<div id="form-content-div">',
+    '#suffix' => '</div>',
   );
 
+  // basic configuration fieldset
   $form['status_tracker_settings']['basic_configuration'] = array(
     '#type' => 'fieldset',
     '#title' => t('Basic Configuration'),
     '#collapsible' => TRUE,
-    '#collapsed' => TRUE,
+    '#collapsed' => FALSE,
   );
 
   $total_phase_options = array();
-  for($i = 3; $i <= 8; $i++){
+  for($i = 3; $i <= 7; $i++){
     $total_phase_options[$i] = t($i);
   }
 
@@ -79,7 +69,15 @@ function status_tracker_tabs_admin_settings_form($node, &$form_state) {
     '#type' => 'select',
     '#options' => $total_phase_options,
     '#default_value' => variable_get('total_phases'),
+    '#ajax' => array(
+      'callback' => 'ajax_phase_content_callback',
+      'wrapper' => 'form-content-div',
+      'method' => 'replace',
+      'effect' => 'fade',
+    ),
   );
+
+  $max_phases = (isset($form_state['values']['total_phases'])) ? $form_state['values']['total_phases'] : variable_get('total_phases');
 
   $form['status_tracker_settings']['basic_configuration']['current_phase_color'] = array(
     '#title' => t('Current Phase Label Color'),
@@ -118,6 +116,27 @@ function status_tracker_tabs_admin_settings_form($node, &$form_state) {
     '#default_value' => variable_get('upcoming_phase_label'),
   );
 
+  // current phase fieldset
+  $form['status_tracker_settings']['current_phase_wrapper'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Current Phase'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
+
+  $current_phase_options = array();
+  for($i = 1; $i <= $max_phases; $i++){
+    $current_phase_options[$i] = t($i);
+  }
+
+  $form['status_tracker_settings']['current_phase_wrapper']['current_phase'] = array(
+    '#title' => t('Current Phase'),
+    '#type' => 'select',
+    '#options' => $current_phase_options,
+    '#default_value' => variable_get('current_phase'),
+  );
+
+  // phase content fieldset
   $form['status_tracker_settings']['phase_content'] = array(
     '#type' => 'fieldset',
     '#title' => t('Phase Content'),
@@ -160,17 +179,11 @@ function status_tracker_tabs_admin_settings_form($node, &$form_state) {
   return system_settings_form($form);
 }
 
-
 /**
- * Implements hook_theme().
+ * Callback to refresh phase content fieldset based on the number of phases
  */
-function status_tracker_tabs_theme() {
-  return array(
-    'tracker_tabs_display' => array(
-      'path' =>  drupal_get_path('module', 'status_tracker_tabs') . '/templates',
-      'template' => 'tracker-tabs-display',
-    ),
-  );
+function ajax_phase_content_callback($form, $form_state) {
+  return $form['status_tracker_settings'];
 }
 
 
@@ -192,7 +205,7 @@ function status_tracker_tabs_friendly_ids($string) {
  */
 function status_tracker_tabs_preprocess_tracker_tabs_display(&$variables) {
 	//helper variables
-	$max_phases = 5;
+	$max_phases = variable_get('total_phases');
 	$current_phase = variable_get('current_phase');
 	$complete = ' is-complete';
 	$current = ' is-current';
@@ -249,6 +262,18 @@ function status_tracker_tabs_preprocess_tracker_tabs_display(&$variables) {
 	}//end for loop
 }
 
+
+/**
+ * Implements hook_theme().
+ */
+function status_tracker_tabs_theme() {
+  return array(
+    'tracker_tabs_display' => array(
+      'path' =>  drupal_get_path('module', 'status_tracker_tabs') . '/templates',
+      'template' => 'tracker-tabs-display',
+    ),
+  );
+}
 
 /**
  * Implements hook_block_info().
