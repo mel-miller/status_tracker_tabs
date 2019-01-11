@@ -1,5 +1,5 @@
 <div id="status-tracker-tabs" class="status-tracker-tabs current--<?php print $current_phase_color ?> clearfix">
-  <div class="status-tracker-tabs--inner">
+  <div class="status-tracker-tabs--inner total-tabs--<?php print $max_phases?>">
 
     <div role="tablist" aria-label="Status Tracker" class="tabs-section tabs-section--first">
       <?php for ($i = 1; $i <= $max_phases; $i++): ?>

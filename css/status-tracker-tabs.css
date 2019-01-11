@@ -110,8 +110,21 @@ button {
   align-items: stretch;
 }
 
-.status-tracker-tabs--inner.status-tracker-horizontal [role="tab"] {
-  flex-basis: 19.85%;
+/* Change flex-basis based on number of total tabs  */
+.status-tracker-tabs--inner.total-tabs--3.status-tracker-horizontal [role="tab"] {
+  flex-basis: 33.04%;
+}
+.status-tracker-tabs--inner.total-tabs--4.status-tracker-horizontal [role="tab"] {
+  flex-basis: 24.75%;
+}
+.status-tracker-tabs--inner.total-tabs--5.status-tracker-horizontal [role="tab"] {
+  flex-basis: 19.625%;
+}
+.status-tracker-tabs--inner.total-tabs--6.status-tracker-horizontal [role="tab"] {
+  flex-basis: 16.3%;
+}
+.status-tracker-tabs--inner.total-tabs--7.status-tracker-horizontal [role="tab"] {
+  flex-basis: 13.915%;
 }
 
 .status-tracker-tabs--inner.status-tracker-horizontal [role="tab"][aria-selected="true"]::after {
